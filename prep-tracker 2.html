@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mukul’s UPSC Study Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>:root{--bg:#f3f0fc;--card:#fff;--fg:#1b1633;--mut:#6d688a;--bd:#e6e1f4;--ac:#6d4aff;--ok:#12b76a;--bad:#f04438;--m:#4f6bff;--p:#12b76a;--o:#f79009;--c:#ee46bc;--t:#06aed4;--sh:0 10px 30px -14px rgba(80,50,200,.35);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0a1f;--card:#1a1433;--fg:#f4f1ff;--mut:#a7a2c6;--bd:#2d2550;--ac:#a08bff;--ok:#3dd68c;--bad:#ff7a6b;--m:#8aa0ff;--p:#3dd68c;--o:#ffb340;--c:#ff7ad0;--t:#4fd8ee;--sh:0 10px 30px -14px rgba(0,0,0,.7)}}
+:root[data-theme="dark"]{--bg:#0e0a1f;--card:#1a1433;--fg:#f4f1ff;--mut:#a7a2c6;--bd:#2d2550;--ac:#a08bff;--ok:#3dd68c;--bad:#ff7a6b;--m:#8aa0ff;--p:#3dd68c;--o:#ffb340;--c:#ff7ad0;--t:#4fd8ee;--sh:0 10px 30px -14px rgba(0,0,0,.7)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:14px 14px 104px;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+main{max-width:680px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+h1,h2,h3,.sh,.ring b,.dt b,details.rm summary{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif}
+.hero{color:#fff;border-radius:30px;padding:20px 18px 18px;background:radial-gradient(120% 90% at 0% 0%,#7c3aed 0,transparent 55%),radial-gradient(90% 80% at 100% 0%,#ec4899 0,transparent 55%),radial-gradient(90% 90% at 80% 110%,#06b6d4 0,transparent 55%),#1d1560;box-shadow:var(--sh)}
+.ht{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.hero h1{font-size:26px;line-height:1.1;margin:0;font-weight:800;letter-spacing:-.02em}
+.hero p{margin:4px 0 0;font-size:13px;opacity:.85}
+.ib{display:flex;gap:6px}
+.ib button{font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.2);backdrop-filter:blur(6px)}
+.hm{display:flex;gap:18px;align-items:center;margin-top:18px}
+.ring{position:relative;width:96px;height:96px;flex:none}
+.ring svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:800}
+.bars{flex:1;display:grid;gap:10px}
+.bars .bl{display:flex;justify-content:space-between;font-size:12px;font-weight:700}
+.bars .bl span{opacity:.8;font-weight:500}
+.bt{height:6px;border-radius:4px;background:rgba(255,255,255,.22);margin-top:4px;overflow:hidden}
+.bt i{display:block;height:100%;background:linear-gradient(90deg,#fff,#ffd1f4);border-radius:4px}
+.nx{margin-top:16px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.14);font-size:13px;display:grid;gap:2px}
+.nx span{opacity:.8}
+#bk{display:none;margin-top:12px}
+#bk textarea{width:100%;height:96px;font:12px/1.4 monospace;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px}
+#bk .ib{margin-top:8px;align-items:center}#bm{font-size:12px}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:22px 2px 8px}
+.sec h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em}
+.lg{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--mut);margin:0 2px 10px}
+.lg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.wk,.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wk{font-size:11px;font-weight:700;color:var(--mut);text-align:center;margin-bottom:6px}
+.cd{aspect-ratio:1/1.1;border-radius:16px;background:var(--card);border:1.5px solid var(--bd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-weight:700;font-size:16px}
+.cd .mo{font-style:normal;font-size:9px;color:var(--mut);height:10px;line-height:10px;font-weight:600}
+.cd.aw{background:linear-gradient(160deg,color-mix(in srgb,var(--bad) 24%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--bad) 45%,var(--bd))}
+.cd.ca{background:linear-gradient(160deg,color-mix(in srgb,var(--o) 26%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--o) 50%,var(--bd))}
+.cd.fl{border-color:var(--ok)}
+.cd.tdy{box-shadow:0 0 0 2.5px var(--ac)}
+.cd.sel{background:linear-gradient(145deg,#6d4aff,#c13cff);border-color:transparent;color:#fff;box-shadow:0 8px 18px -8px #8b3dff}.cd.sel .mo{color:rgba(255,255,255,.85)}
+.dots{display:flex;gap:3px;height:6px}
+.dots u{width:6px;height:6px;border-radius:50%;display:block}
+.d1{background:var(--bad)}.d2{background:var(--o)}.d3{background:var(--ok)}
+.cd.sel .d3{background:#fff}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:26px;padding:16px;margin-top:14px;box-shadow:var(--sh)}
+.dh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.dh h3{margin:0;font-size:24px;font-weight:800;letter-spacing:-.01em}
+.dh span{font-size:13px;color:var(--mut);font-weight:700}
+.ph{font-size:13px;color:var(--mut);margin:2px 0 8px}
+.tgs2{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tg2{font-style:normal;font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px}
+.tg2.r{background:color-mix(in srgb,var(--bad) 16%,var(--card));color:var(--bad)}
+.tg2.a{background:color-mix(in srgb,var(--o) 18%,var(--card));color:var(--o)}
+.tg2.g{background:color-mix(in srgb,var(--ok) 16%,var(--card));color:var(--ok)}
+.tip{font-size:13px;padding:9px 12px;border-radius:14px;background:linear-gradient(120deg,color-mix(in srgb,var(--ac) 14%,var(--card)),color-mix(in srgb,var(--c) 12%,var(--card)));margin-bottom:4px}
+.row{display:flex;gap:11px;align-items:flex-start;padding:12px;margin-top:9px;border-radius:18px;background:color-mix(in srgb,var(--a) 11%,var(--card));border:1px solid color-mix(in srgb,var(--a) 28%,var(--card));cursor:pointer}
+.row input,.tg input{position:absolute;opacity:0;pointer-events:none}
+.ck{flex:none;width:24px;height:24px;border-radius:50%;border:2.5px solid var(--a);margin-top:2px;display:flex;align-items:center;justify-content:center}
+input:checked+.ck{background:var(--a)}
+input:checked+.ck::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.rb em{display:flex;gap:8px;align-items:baseline;font-style:normal;font-size:13px;font-weight:800;color:var(--a);margin-bottom:1px}
+.rb em s{text-decoration:none;color:var(--mut);font-weight:500;font-size:12px}
+.rb span{font-size:14px}
+.row:has(input:checked) .rb span{opacity:.5}
+.nv{display:flex;justify-content:space-between;margin-top:12px}
+.nv button{font-size:13px;font-weight:800;color:var(--ac);padding:8px 4px}
+details.rm{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:2px 16px;margin-top:14px}
+details.rm summary{cursor:pointer;font-size:18px;font-weight:800;padding:13px 0}
+.ps{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--bd);font-size:14px}
+.ps b{flex:none;width:92px;color:var(--ac);font-size:13px}
+.pl{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px}.pl::-webkit-scrollbar{display:none}
+.pl button{flex:none;font-size:13px;font-weight:700;padding:8px 15px;border-radius:99px;background:var(--card);border:1.5px solid var(--bd)}
+.pl button.on{background:linear-gradient(135deg,#6d4aff,#c13cff);border-color:transparent;color:#fff}
+.tc{display:flex;gap:12px;background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:13px;margin-bottom:11px}
+.dt{flex:none;width:54px;text-align:center;border-radius:16px;padding:7px 0;background:color-mix(in srgb,var(--ac) 12%,var(--card))}
+.dt b{display:block;font-size:23px;font-weight:800;line-height:1.1}.dt span{font-size:11px;color:var(--mut);font-weight:700}
+.tb{flex:1;min-width:0}
+.tm{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:800}
+.gs{padding:2px 10px;border-radius:99px;background:color-mix(in srgb,var(--ac) 16%,var(--card));color:var(--ac)}
+.st{margin-left:auto}.done .st{color:var(--ok)}.over .st{color:var(--bad)}.pend .st{color:var(--mut)}
+.tc.done .dt{background:color-mix(in srgb,var(--ok) 20%,var(--card))}.tc.over .dt{background:color-mix(in srgb,var(--bad) 18%,var(--card))}
+.tt{font-size:14px;margin:4px 0 6px}.pn{font-size:12.5px;color:var(--o);font-weight:700;margin-bottom:6px}
+.tgl{display:flex;gap:6px;flex-wrap:wrap}
+.tg{position:relative}
+.tg span{display:inline-block;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:99px;border:1.5px solid var(--bd);color:var(--mut)}
+.tg input:checked+span{background:var(--ok);border-color:var(--ok);color:#fff}
+details.nt{margin-top:8px}
+details.nt summary{font-size:12.5px;color:var(--mut);cursor:pointer;font-weight:700}
+.nt input{width:100%;margin-top:6px;font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:8px 10px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.tile{position:relative;text-align:left;color:#fff;border-radius:22px;padding:12px 13px 13px;min-height:100px;background:linear-gradient(135deg,var(--g1),var(--g2));display:flex;flex-direction:column;gap:1px;box-shadow:0 10px 22px -12px var(--g1);opacity:.78}
+.tile.on{opacity:1;outline:3px solid var(--fg);outline-offset:2px}
+.tile .em{font-size:26px;line-height:1.1}.tile b{font:800 16px "Bricolage Grotesque","DM Sans",sans-serif}.tile small{font-size:12px;opacity:.9}
+.pb2{display:block;height:5px;border-radius:4px;background:rgba(255,255,255,.3);margin-top:auto;overflow:hidden}.pb2 u{display:block;height:100%;background:#fff}
+.gp{border-radius:22px;padding:14px 16px;margin-bottom:10px;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2))}
+.gp h3{margin:0;font-size:21px;font-weight:800}.gp small{display:block;opacity:.9;margin-top:2px;font-size:12.5px}
+.sh{font-size:17px;font-weight:800;margin:18px 2px 8px;color:var(--ac)}
+.tp{background:var(--card);border:1px solid var(--bd);border-radius:20px;margin-bottom:9px;overflow:hidden}
+.tp summary{display:flex;gap:10px;align-items:center;padding:11px 12px;cursor:pointer;list-style:none}
+.tp summary::-webkit-details-marker{display:none}
+.nb{flex:none;width:28px;height:28px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2))}
+.tt2{flex:1;font-weight:700;font-size:14px;line-height:1.3}.tt2 small{display:block;color:var(--mut);font-weight:600;font-size:11.5px}
+.ct2{flex:none;font-size:12px;font-weight:800;color:var(--mut)}
+.tp[open] summary{border-bottom:1px solid var(--bd)}
+.tp.dn{border-color:var(--ok)}.tp.dn .ct2{color:var(--ok)}
+.mc{display:flex;flex-wrap:wrap;gap:6px;padding:12px}
+.mc .tg span{font-weight:600;font-size:12.5px}
+.ac2{display:flex;justify-content:space-between;align-items:center;padding:0 12px 12px}
+.ac2 button{font-size:12.5px;font-weight:800;color:var(--ac)}
+.empty{text-align:center;color:var(--mut);padding:24px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--bd);padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px))}
+nav div{max-width:680px;margin:0 auto;display:flex;gap:6px}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;font-weight:700;color:var(--mut);padding:7px 0;border-radius:16px}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:#fff;background:linear-gradient(135deg,#6d4aff,#c13cff)}
+</style>
+</head>
+<body>
+<main>
+<div class="hero">
+<div class="ht"><div><h1>Mukul’s UPSC Study Planner</h1><p>17 Nov – 31 Dec 2026 · AWFG tests rescheduled + PowerUp CA + PYQs</p></div>
+<div class="ib"><button id="th">Theme</button><button id="bkb">Backup</button></div></div>
+<div class="hm"><div class="ring"><svg viewBox="0 0 80 80"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffc2f1"/></linearGradient></defs><circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="8"/><circle id="rg" cx="40" cy="40" r="34" fill="none" stroke="url(#gr)" stroke-width="8" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6"/></svg><b id="pc">0%</b></div>
+<div class="bars" id="bars"></div></div>
+<div class="nx" id="nx"></div>
+<div id="bk"><textarea id="bt" placeholder="Export dabao, ye text kahin save kar lo. Restore ke liye yahan paste karke Restore dabao."></textarea>
+<div class="ib"><button id="ex">Export</button><button id="rs">Restore</button><span id="bm"></span></div></div>
+</div>
+
+<section id="tab-d">
+<div class="sec"><h2>Calendar</h2><span id="ct"></span></div>
+<div class="lg"><span><i style="background:var(--bad)"></i>AWFG test</span><span><i style="background:var(--o)"></i>PowerUp CA test</span><span><i style="background:var(--ok)"></i>din complete</span></div>
+<div class="wk"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+<div class="cal" id="cal"></div>
+<div id="dc"></div>
+<details class="rm"><summary>Phase roadmap</summary><div id="rm"></div></details>
+</section>
+<section id="tab-t" hidden><div class="pl" id="tf"></div><div id="tl"></div></section>
+<section id="tab-s" hidden><div class="tiles" id="sf"></div><div id="sp"></div><div id="sl"></div></section>
+</main>
+<nav><div>
+<button data-tab="d" class="on"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>Schedule</button>
+<button data-tab="t"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Tests</button>
+<button data-tab="s"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>Syllabus</button>
+</div></nav>
+<script>
+var wd=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],mn=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+var T=[[1,"09-21","GS2","Polity T1, 4"],[2,"09-23","GS2","Polity T2, 3"],[3,"09-25","GS2","Polity T5, 6"],[4,"09-28","GS2","Polity T7, 8, 9, 11"],[5,"09-30","GS2","Welfare schemes + Social Justice T12–14"],[6,"10-03","GS2","Govt policies + Governance T10, 15, 16"],[7,"10-05","GS2","IR T17"],[8,"10-07","GS2","IR T18"],[9,"10-09","GS2","IR T19, 20"],[10,"10-12","GS3","Indian Economy T1"],[11,"10-14","GS3","Economy, Industrial Policy T2, 3, 8"],[12,"10-16","GS3","Economy T9, 10"],[13,"10-19","GS3","Agriculture T4, 6"],[14,"10-21","GS3","Agriculture, Land Reforms T5, 7"],[15,"10-23","GS3","Science &amp; Tech T11–13"],[16,"10-26","GS3","Environment + Disaster Mgmt T14, 15"],[17,"10-28","GS3","Security T16, 17, 20"],[18,"10-30","GS3","Security T18, 19"],[19,"11-02","GS4","T1 + 2 case studies"],[20,"11-04","GS4","T2 + 2 case studies"],[21,"11-06","GS4","T4, 5 + 2 case studies"],[22,"11-11","GS4","T3 + 2 case studies"],[23,"11-13","GS4","T6 + 2 case studies"],[24,"11-16","GS4","T7 + 2 case studies"],[25,"11-18","GS1","Art &amp; Culture T1"],[26,"11-20","GS1","Modern History T2"],[27,"11-23","GS1","World History T4"],[28,"11-25","GS1","Post-Independence T3"],[29,"11-27","GS1","Indian Society T5a"],[30,"11-30","GS1","Indian Society T5b"],[31,"12-02","GS1","Physical Geography T6"],[32,"12-04","GS1","Geophysical Phenomena T8"],[33,"12-07","GS1","Human Geography T7"]];
+
+
+
+
+
+var P=[[1,"CA5501","May 2026 CA","2026-11-18"],[2,"CA5502","June 2026 CA","2026-12-02"],[3,"CA5503","July 2026 CA","2026-12-16"],[4,"CA5504","August 2026 CA","2026-12-30"],[5,"CA5505","September 2026 CA","2027-01-13"],[6,"CA5506","October 2026 CA","2027-01-27"],[7,"CA5507","Revision Test-1 · May to Oct 2026","2027-02-10"],[8,"CA5508","November 2026 CA","2027-02-24"],[9,"CA5509","December 2026 CA","2027-03-10"],[10,"CA5510","January 2027 CA","2027-03-24"],[11,"CA5511","February 2027 CA","2027-04-07"],[12,"CA5512","IR, Mapping etc. · May 2026 to Apr 2027","2027-04-14"],[13,"CA5513","March 2027 CA","2027-04-28"],[14,"CA5514","April 2027 CA","2027-05-05"],[15,"CA5515","Revision Test-2 · Nov 2026 to Apr 2027","2027-05-12"]];
+var TM=["06:00–09:00","09:30–12:00","13:00–15:00","16:00–17:30","18:30–20:00"],LB=["📝 Mains","🎯 Prelims PYQ","🏛️ PubAd","📰 Current Affairs","🔁 Review"],CL=["--m","--p","--o","--c","--t"];
+var G=[
+["Prelims GS-I","🧭",["#10b981","#06b6d4"],[
+"## Polity + Governance",
+"Constitution + Preamble|p0::Historical background;Preamble;Salient features;Amendments;Basic structure;Schedules",
+"Rights, DPSP, Duties|p0::Fundamental Rights;Writs;DPSP;Fundamental Duties;Citizenship",
+"Union + State executive, legislature|p1::President, VP;PM + Council of Ministers;Governor, CM;Parliament;State legislature;Bills, committees",
+"Judiciary + federalism|p2::Supreme Court;High Courts;PIL, judicial review;Centre-state relations;Emergency provisions",
+"Local government|p2::73rd amendment;74th amendment;PESA;Fifth + Sixth Schedule",
+"Bodies + elections|p3::Constitutional bodies;Statutory bodies;Election Commission;RPA;Anti-defection",
+"Governance + rights issues|p4::Schemes + policies;e-governance;RTI;Social justice;Rights issues",
+"## Ancient + Medieval India",
+"Prehistory + Indus|p8::Stone Age;Indus Valley;Vedic age",
+"Mahajanapadas + Mauryas|p8::Mahajanapadas;Buddhism, Jainism;Mauryan empire",
+"Guptas + post-Gupta|p8::Sungas to Kushanas;Guptas;Harsha;Sangam, Cholas, Pallavas",
+"Sultanate + regional kingdoms|p9::Rajputs;Delhi Sultanate;Sultanate administration;Vijayanagara",
+"Mughals + Marathas|p9::Mughal empire;Mansabdari;Marathas;Bhakti + Sufi;Medieval art + literature",
+"## Modern History + National Movement",
+"Colonial rule 1757–1857|p10::British expansion;Land revenue systems;Economic drain;Revolt of 1857",
+"Reforms + early nationalism|p10::Socio-religious reforms;Press + education;Early nationalists;Partition of Bengal",
+"Gandhian era + independence|p11::Non-Cooperation;Civil Disobedience;Quit India;Revolutionaries, INA;Constitutional developments;Partition",
+"## Art + Culture",
+"Architecture + sculpture|p12::Temple styles;Indo-Islamic;Buddhist sites;Sculpture schools",
+"Painting, music, dance|p14::Miniature + folk painting;Classical dance;Hindustani + Carnatic music;Theatre + puppetry",
+"Heritage + institutions|p15::UNESCO sites;GI tags;Festivals;Languages, literature;Awards",
+"## Geography (World + India)",
+"Geomorphology|p16::Earth interior;Plate tectonics;Rocks;Landforms;Weathering",
+"Climatology|p17::Atmosphere;Winds, pressure belts;Monsoon, ENSO;Cyclones;Climate types",
+"Oceanography|p18::Relief;Currents;Tides;Salinity;Coral, marine resources",
+"India physical|p19::Mountains, plains;Rivers, drainage;Climate;Soils;Vegetation, national parks",
+"Resources + economic geography|p22::Agriculture;Minerals;Energy;Industries;Transport",
+"Human + world geography|p23::Population, census;Migration, urbanisation;World regions + maps;Straits, seas, places in news",
+"## Economy + Social Development",
+"Macro basics|p29::National income;Growth, GDP;Inflation;Unemployment;Planning",
+"Money + banking|p30::RBI;Monetary policy;Banks, NBFCs;Financial markets;Insurance, pensions",
+"Public finance|p31::Budget;Taxation, GST;FRBM;Deficits;Subsidies",
+"External sector|p32::BoP;Forex, exchange rate;Trade policy;IMF, WB, WTO;FDI + FPI",
+"Agri + food economy|p33::MSP;PDS, NFSA;Agri marketing;Subsidies;Cooperatives",
+"Industry, infra, social sector|p35::Industrial policy;Infrastructure;Poverty, inclusion;Demographics;Health + education schemes",
+"## Environment, Ecology + Climate",
+"Ecology + biodiversity|p38::Ecosystems;Food chains;Biodiversity hotspots;Species interactions",
+"Conservation|p39::Protected areas;IUCN Red List;Wildlife laws;Ramsar, CITES, CBD;Species in news",
+"Climate + pollution|p40::Climate change, UNFCCC;Pollution types;EIA;Renewable energy;Environmental laws",
+"## General Science + Tech",
+"Basic science|p42::Physics basics;Chemistry basics;Daily-life science",
+"Biology + health|p43::Diseases, vaccines;Biotech, GM;Genetics, gene editing;Nutrition",
+"Space, defence, new tech|p44::Space missions;Defence tech;Nuclear;IT, AI, quantum;Semiconductors",
+"## Current events",
+"IR + organisations|p45::Groupings;Treaties;UN + agencies;Neighbourhood;Summits",
+"Reports, schemes, awards|p46::Reports + indices;Government schemes;Awards;Places in news;Personalities in news"]],
+["CSAT","🧮",["#06b6d4","#3b82f6"],[
+"Comprehension|p30::Passage types;Inference-based;Tone + central idea;Elimination technique",
+"Interpersonal skills + communication|p44::Communication basics;Group dynamics;Empathy-based questions",
+"Logical reasoning + analytical ability|p32::Syllogisms;Statements + conclusions;Arrangements;Series, coding;Blood relations, directions",
+"Decision-making + problem-solving|p35::Case-based decisions;Ethical approach;Priority questions",
+"General mental ability|p42::Puzzles;Clocks, calendars;Venn diagrams;Analytical reasoning",
+"Basic numeracy (Class X)|p37::Percentages;Ratio, proportion;Time, work, speed;Averages;Number system, mensuration;Probability, P+C",
+"Data interpretation (Class X)|p39::Tables;Bar + line graphs;Pie charts;Caselets"]],
+["GS1","🏺",["#f59e0b","#ef4444"],[
+"Art + Culture|t25::Indus-Mauryan-Gupta art;Temple architecture;Buddhist + Jain art;Indo-Islamic + Mughal architecture;Colonial + modern architecture;Painting: mural, miniature, modern;Classical dance + music;Theatre, puppetry, folk arts;Literature: Sanskrit, Pali, regional;Handicrafts, GI, UNESCO heritage;Cultural institutions",
+"Modern History|t26::18th c. India, Mughal decline;British conquest + colonial economy;Revolt of 1857;Socio-religious reforms;Rise of nationalism, Moderates;Extremists, Swadeshi, Home Rule;Gandhian phase: NCM, CDM, Quit India;Revolutionaries, INA, Left;Communalism, Partition;Constitutional developments;Peasant + tribal movements",
+"Post-Independence|t28::Integration of princely states;Linguistic reorganisation;Nehruvian consolidation, planning;Green + White Revolution;Emergency, JP movement;Regional movements, Northeast, Punjab;Mandal, 1991 reforms;Coalition era + federalism",
+"World History|t27::Industrial revolution;American + French revolutions;Imperialism + colonisation;World War I, Versailles;Russian Revolution, communism;Fascism, Nazism;World War II;Cold War + decolonisation;Redrawal of boundaries;Capitalism, socialism",
+"Indian Society|t29::Salient features, diversity;Caste, tribe, class;Women + women’s organisations;Population: growth, policy, ageing;Poverty + developmental issues;Urbanisation: slums, smart cities;Family, marriage, kinship;Youth, minorities, vulnerable groups",
+"Globalisation, empowerment, communalism, secularism|t30::Globalisation + Indian society;Impact on culture, family, women;Social empowerment: SC/ST/OBC;Communalism: causes, remedies;Regionalism;Secularism: Indian model;Social movements",
+"Physical Geography: world|t31::Origin of Earth, interior;Plate tectonics;Rocks, minerals, landforms;Weathering, erosion;Atmosphere: pressure, winds;Jet streams, monsoon, cyclones;Climate types;Oceans: currents, tides, salinity;Biogeography, biomes",
+"Human + Economic Geography|t33::Natural resources distribution;Minerals + energy;Agriculture types + regions;Industrial location factors;Primary, secondary, tertiary location;Iron-steel, cotton, IT industries;Transport + trade routes;Population + migration;Settlements + urbanisation",
+"Geophysical phenomena + changes|t32::Earthquakes;Tsunami;Volcanic activity;Cyclones;Landslides + floods;Melting ice-caps, sea level;Water-body changes;Flora + fauna changes;Desertification, deforestation"]],
+["GS2","🏛️",["#3b82f6","#6366f1"],[
+"Constitution|t1::Historical underpinnings, Acts 1773–1935;Constituent Assembly, sources;Preamble + salient features;Amendment procedure + key amendments;Basic structure doctrine;Fundamental Rights;DPSP + Fundamental Duties;Emergency provisions;Schedules + citizenship",
+"Union-States relations, federalism|t2::Legislative, administrative, financial relations;Inter-State Council, Zonal Councils, GST Council;Finance Commission, devolution;Governor, Article 356;Inter-State disputes;Special status, Fifth/Sixth Schedule;73rd/74th amendments;Challenges to local bodies",
+"Separation of powers, dispute redressal|t2::Separation of powers + checks;Judicial review, activism, overreach;Tribunals + ADR;Lok Adalats, Nyaya Panchayats;Judicial appointments, collegium;Pendency, judicial reforms",
+"Comparison with other constitutions|t1::UK, USA, France;Canada, Australia;Parliamentary vs presidential;Federal features;Amendment + judicial review compared;Rights + directive principles compared",
+"Parliament + State legislatures|t3::Structure, composition;Legislative procedure, bills;Committees + budget process;Parliamentary privileges;Anti-defection law;Ordinances, Money bill issues;Speaker, Chairman roles;Question Hour, disruptions",
+"Executive + Judiciary|t3::President, Governor powers;PM, Council of Ministers, Cabinet;Ministries, PMO, Cabinet Secretariat;Supreme Court + High Courts;Subordinate courts;PIL;Pressure groups;Formal/informal associations",
+"Representation of People’s Act|t4::RPA 1950 vs 1951;Qualification + disqualification;Electoral offences, corrupt practices;Election petitions;Criminalisation of politics;Electoral funding, bonds;EVM, VVPAT, Model Code;One Nation One Election",
+"Constitutional posts + bodies|t4::President, VP, Governor;CAG;Attorney General, Advocate General;Election Commission;UPSC + SPSC;Finance Commission;NCSC, NCST;Inter-State Council",
+"Statutory, regulatory, quasi-judicial bodies|t4::NITI Aayog;NHRC, SHRC;CIC, Lokpal, Lokayukta;CVC, CBI;SEBI, TRAI, IRDAI, CCI;NGT, tribunals;Women, minorities, child commissions",
+"Government policies + interventions|t6::Policy-making process;Design + implementation gaps;Sectoral policies: education, health, agri;Centrally sponsored schemes;Evaluation, outcome budgeting;Federal coordination",
+"NGOs, SHGs, development industry|t4::Role of NGOs, FCRA;SHGs + microfinance;Pressure groups, associations;Donors, charities, CSR;Cooperatives;Institutional stakeholders",
+"Welfare schemes for vulnerable sections|t5::Women: laws + schemes;Children;SC/ST: laws, bodies, schemes;Minorities;Elderly, disabled (RPwD);Transgender rights;Tribal rights: FRA, PESA;Performance + critique of schemes",
+"Health, Education, Human Resources|t5::NEP 2020, higher education;RTE, learning outcomes;Skill development;Health system, Ayushman Bharat;Nutrition, maternal + child health;Mental health;Public health emergencies;Human capital",
+"Poverty + hunger|t5::Measurement, MPI, poverty lines;Hunger index, malnutrition;Food security: NFSA, PDS;Mid-day meal, ICDS;Poverty programmes;Social security;Inequality",
+"Governance, transparency, accountability|t6::Good governance, e-governance;Citizen’s charter, grievance redressal;RTI Act, social audit;Digital India, DBT, JAM;Corruption + ethics;Ombudsman, Lokpal;Data privacy + transparency;Administrative reforms",
+"Role of civil services|t6::Civil services in democracy;Neutrality, political-bureaucratic relations;Accountability, transparency;Reforms: lateral entry, Mission Karmayogi;Civil service ethics;Generalist vs specialist",
+"India + neighbourhood relations|t7::Pakistan;China;Nepal, Bhutan;Bangladesh, Myanmar;Sri Lanka, Maldives;Afghanistan;Neighbourhood First, Act East;Border disputes;Connectivity: BBIN, BIMSTEC",
+"Groupings + agreements affecting India|t8::SAARC, BIMSTEC;ASEAN, RCEP;BRICS, SCO;Quad, I2U2, IPEF;G20, G7;WTO, FTAs;Indo-Pacific;Bilateral agreements: US, Russia, EU",
+"Policies of other countries + diaspora|t9::US policies: trade, visa;China: BRI, debt diplomacy;Russia-Ukraine impact;West Asia crisis;EU regulations: CBAM;Gulf, Africa outreach;Indian diaspora, remittances",
+"International institutions|t9::UN + UNSC reform;IMF, World Bank;WTO;WHO, UNESCO, UNHCR;ICJ, ICC;NATO, OPEC;AIIB, NDB;Climate fora: UNFCCC, COP"]],
+["GS3","🛡️",["#10b981","#84cc16"],[
+"Indian economy: planning, growth, employment|t10::Planning: FYPs to NITI;Growth, GDP, GVA;Unemployment + employment schemes;Informal sector, labour codes;Demographic dividend;Fiscal + monetary policy;Inflation, RBI;Banking, NPAs;Capital markets",
+"Inclusive growth|t11::Inclusion: concept + challenges;Financial inclusion: Jan Dhan, UPI;Gender + regional inequality;Social security;MSMEs;Poverty alleviation + growth;Rural-urban divide",
+"Government budgeting|t11::Budget process, types;Revenue + capital, deficits;FRBM, fiscal consolidation;GST, direct taxes;Subsidies, outcome budget;Finance Commission, cess;Gender + green budgeting;Public debt",
+"Agriculture: cropping, irrigation, marketing|t13::Major crops, cropping patterns;Irrigation systems, PMKSY;Storage, transport;APMC, eNAM, FPOs, farm laws;Agri-tech, e-technology;Soil, fertilisers, organic farming;Climate-smart agriculture;Agri credit",
+"Subsidies, MSP, PDS, food security|t14::Direct + indirect farm subsidies;MSP + procurement;PDS, NFSA, buffer stocks;Food security + WTO;Technology missions;Animal husbandry, dairy, fisheries;Fertiliser + power subsidies",
+"Food processing + supply chain|t13::Scope + significance;Mega food parks, PMKSY, PLI;Cold chain, logistics;Upstream + downstream links;Wastage, value addition;Agri exports",
+"Land reforms|t14::Zamindari abolition;Tenancy reform, ceiling;Consolidation, Bhoodan;Land records digitisation;Land acquisition law (LARR);Land leasing, tribal land",
+"Liberalisation + industrial policy|t11::LPG reforms 1991;Industrial policy evolution;Make in India, PLI;Ease of doing business;MSMEs, start-ups;Disinvestment, PSUs;FDI policy",
+"Infrastructure|t12::Energy: power, renewables;Ports, Sagarmala;Roads, Bharatmala;Airports, UDAN;Railways, DFC, Vande Bharat;Urban infra, smart cities;PM Gati Shakti, NIP;Logistics, telecom",
+"Investment models|t12::PPP, BOT, HAM, TOT;InvITs, REITs;FDI, FPI;Infra financing, NaBFID;Monetisation pipeline;Viability gap funding",
+"S&amp;T developments + applications|t15::Everyday S&amp;T applications;Health + biotech;Energy tech, nuclear;IT, AI, quantum;Defence tech, DRDO;Emerging tech: 5G, drones, EVs",
+"Indian S&amp;T achievements, indigenisation|t15::ISRO: Chandrayaan, Aditya, Gaganyaan;DRDO, indigenous defence;Vaccines + pharma;Semiconductor mission;Research funding, NRF;Indigenous tech: UPI, CoWIN",
+"IT, space, robotics, nano, biotech, IPR|t15::IT + cyber;Space tech, satellites;Robotics, AI;Nanotechnology;Biotech, GM, gene editing;IPR, patents, TRIPS;Quantum, supercomputing",
+"Conservation, pollution, EIA|t16::Biodiversity conservation, wildlife laws;Air pollution + solutions;Water, soil, noise, plastic;Climate change, NDC, COP;EIA process + issues;Renewable energy, net-zero;Forest rights, Forest Act;Sustainable development",
+"Disaster management|t16::DM Act, NDMA, SDMA;Sendai Framework;Floods, cyclones, drought;Earthquakes, landslides;Industrial + man-made disasters;Preparedness, mitigation, community role;Early warning, technology",
+"Development + spread of extremism|t17::Naxalism: causes, spread;LWE strategy: SAMADHAN;Tribal alienation, land, forest rights;Development deficit + governance gap;Insurgency in Northeast;Radicalisation + counter-narrative;Role of civil society",
+"External + non-state actors, internal security|t17::Cross-border terrorism;State-sponsored proxy war;ISI, terror outfits;Non-state actors: NGOs, mafia;Maritime security;Radicalisation: ISIS, ISKP;Drug trafficking, Golden Crescent;Hybrid warfare",
+"Cyber, media, money laundering|t18::Cyber crimes + IT Act;Cyber warfare, critical infrastructure;Data protection law;Social media challenges;Fake news, deepfakes;Money laundering, PMLA, FATF;Hawala, crypto;Cyber security policy",
+"Border areas + organised crime, terrorism|t18::Border management: land, coastal;Border infrastructure, BADP;Integrated Check Posts;Organised crime-terror nexus;Narco-terrorism;Arms smuggling, human trafficking;Fake currency;Coastal security",
+"Security forces + agencies|t17::Army, Navy, Air Force;CAPFs: BSF, CRPF, ITBP, CISF, SSB;NSG, Assam Rifles;Intelligence: IB, RAW, NIA;NSA, NSCS;Defence reforms: CDS, theaterisation;Police reforms;Defence procurement, indigenisation"]],
+["GS4","⚖️",["#8b5cf6","#d946ef"],[
+"Ethics + human interface|t19::Essence of ethics;Determinants + consequences;Dimensions of ethics;Ethics in private vs public relations;Human values;Lessons from great leaders, reformers;Role of family, society, education",
+"Attitude|t20::Content, structure, function;Attitude formation + change;Influence on thought + behaviour;Moral + political attitudes;Social influence, persuasion;Prejudice, stereotypes",
+"Aptitude + foundational values|t22::Integrity;Impartiality, non-partisanship;Objectivity;Dedication to public service;Empathy;Tolerance;Compassion toward weaker sections",
+"Emotional intelligence|t21::Concepts of EI;Components (Goleman);Utility in administration;EI + decision-making;Conflict handling",
+"Moral thinkers|t21::Gandhi, Buddha;Kant, utilitarianism;Aristotle, Plato;Kautilya, Thiruvalluvar;Ambedkar, Vivekananda, Tagore;Rawls, virtue ethics",
+"Public service values + ethics in administration|t23::Ethical issues + dilemmas;Laws, rules, conscience;Accountability + ethical governance;Strengthening moral values;Ethics in international relations + funding;Corporate governance;Ethical concerns in private institutions",
+"Probity in governance|t24::Concept of public service;Philosophical basis of probity;Transparency, RTI;Codes of ethics + conduct;Citizen’s charter;Work culture;Quality of service delivery;Use of public funds;Corruption",
+"Case studies (in every GS4 test)::Stakeholder analysis;Dilemma identification;Options + consequences;Ethical framework;Final stand + implementation;Standard types: corruption, conflict of interest, whistleblowing"]],
+["Essay","✍️",["#ec4899","#f43f5e"],[
+"Philosophical + social themes|p33::Abstract quotes;Gender + society;Education, values;Technology + humanity",
+"Economy + development|p40::Growth + inequality;Agriculture, labour;Globalisation",
+"Governance, polity, IR + security|p47::Democracy, federalism;Justice, rights;Security, India in the world",
+"Environment + S&amp;T|p49::Climate, sustainability;AI + ethics;Science + society"]],
+["PubAd P1","📚",["#f97316","#eab308"],[
+"Introduction, evolution|p0::Meaning, scope, significance;Public vs private administration;Wilson’s vision, politics-administration dichotomy;Evolution of the discipline;New Public Administration (Minnowbrook)",
+"NPM, public choice, LPG, good governance|p1::New Public Management;Public choice approach;Challenges of LPG;Good governance, e-governance;New Public Service;Ostrom",
+"Scientific + classical thought|p2::Taylor;Fayol;Gulick + Urwick, POSDCORB;Weber’s bureaucracy;Mooney, Reiley",
+"Human relations + behavioural|p3::Mayo, Hawthorne;Barnard;Simon;Mary Parker Follett;Likert, McGregor, Argyris, Maslow, Herzberg",
+"Systems, ecology, Riggs|p4::Systems approach;Contingency approach;Ecology of administration;Riggs models;Dror, public choice",
+"Decision-making + motivation|p5::Simon: bounded rationality;Decision-making models;Motivation theories;Morale, job satisfaction",
+"Leadership + communication|p7::Leadership theories;Traits, styles;Communication, barriers;Control, coordination",
+"Organisation theories + structures|p8::Hierarchy, span of control;Unity of command;Centralisation, delegation;Authority, responsibility;Formal vs informal organisation",
+"Chief Executive, line/staff, ministries|p9::Chief Executive roles;Line, staff, auxiliary agencies;Departments, ministries;Headquarters + field",
+"PSUs, regulatory + ad hoc bodies|p10::Public corporations, companies;Boards, commissions;Regulatory authorities;Ad hoc, advisory bodies",
+"Accountability + control|p11::Legislative control;Executive control;Judicial control;Citizen + civil society, media;Ombudsman",
+"Administrative law|p12::Delegated legislation;Administrative tribunals;Droit administratif;Rule of law",
+"Comparative PA|p14::Nature, comparative methods;Riggs’ prismatic model;Bureaucracy: developed vs developing;Ferrel Heady",
+"Development administration|p15::Concept;Bureaucracy + development;Participation;Development administration vs administrative development;Planning, people’s participation",
+"Personnel: recruitment, training, promotion|p16::Role of civil service;Recruitment;Training;Promotion, career advancement;Pay, position classification",
+"Personnel: conduct, employer-employee|p17::Discipline, conduct rules;Staff associations;Joint consultation;Retirement;Neutrality, anonymity",
+"Public policy|p18::Concept, models;Policy cycle;Implementation;Monitoring, evaluation;Policy analysis",
+"Admin improvement techniques|p19::O&amp;M;e-governance;Management aid tools;Work study;TQM, BPR;Citizen’s charter",
+"Financial administration|p21::Budget concepts;PPBS, zero-base budgeting;Performance budgeting;Accounts + audit;Fiscal policy, control"]],
+["PubAd P2","🗺️",["#0ea5e9","#14b8a6"],[
+"Evolution: Kautilya to Mughal|p22::Kautilya’s Arthashastra;Mauryan administration;Mughal administration;Mansabdari",
+"British period + constitutional framework|p23::Regulating Act to GoI Act 1935;Indianisation, ICS;Evolution of local self-government;Constitutional framework: Preamble, FRs, DPSP",
+"Public Sector Undertakings|p24::Forms, growth;Autonomy, accountability;Disinvestment, privatisation;Boards, MoU",
+"Union: President, PM, Cabinet, PMO|p25::President;PM + Council of Ministers;Cabinet committees;Cabinet Secretariat;PMO",
+"Ministries, boards, NITI|p26::Central secretariat;Ministries + departments;Boards, commissions;Planning Commission to NITI",
+"Plans and priorities|p28::Plan model;Five Year Plans;NITI Aayog;Decentralised planning",
+"State government|p29::Governor;CM + council of ministers;State secretariat;Chief Secretary;Directorates",
+"District administration|p30::Collector role;Land revenue;Law and order;District planning;Changing role",
+"Civil services: provisions, recruitment|p31::Constitutional provisions;All India Services;UPSC;Recruitment reforms",
+"Civil services: training, neutrality|p32::Training: LBSNAA;Neutrality;Civil-political relations;Generalist vs specialist",
+"Financial management, CAG, PAC|p33::Budget process;Parliamentary control;CAG;PAC, Estimates Committee;Public debt",
+"Admin reforms: ARC 1|p35::First ARC;Other reform committees;Reform methodology",
+"Admin reforms: ARC 2, committees|p36::Second ARC;Sarkaria, Punchhi;Mission Karmayogi;Recent reforms",
+"Rural development|p37::Panchayati Raj;MGNREGA, DAY-NRLM;PMAY-G;Rural development agencies",
+"Urban local government|p38::74th amendment;Municipalities;Mayor, Commissioner;Urban challenges",
+"Law and order|p39::Police administration;Police reforms;CAPFs, internal security;Intelligence",
+"Significant issues: values, regulators|p40::Values in public service;Regulatory commissions;NHRC;Welfare administration",
+"Significant issues: RTI, e-gov, charter|p41::RTI Act;e-governance;Citizen’s charter;Lokpal;Social audit;Grievance redressal"]]];
+var TIPS=["Mains answer: intro 2 lines, body me 3–4 dimensions, conclusion forward-looking.","Prelims: har galat option ke liye ek line likho ki wo galat kyun hai.","Ek answer 7 min me likhne ki practice karo (7 Q / 1 hr).","Static + current: har CA news ko ek static concept se jodo.","Case study: stakeholders → dilemma → options → apna stand.","PubAd: thinker + keyword + ek example, har answer me.","Sone se pehle 10 min aaj ka error log dekho.","Diagram ya flowchart se answer ka presentation kaafi better hota hai."];
+function pt(s){if(s.indexOf("##")===0)return {h:s.slice(3)};var q=s.split("::"),a=q[0].split("|");return {t:a[0],g:a[1]||"",m:q[1]?q[1].split(";"):[a[0]]}}
+function gstat(gi){var d=0,t=0;G[gi][3].forEach(function(s,j){var p=pt(s);if(p.h)return;t+=p.m.length+1;p.m.forEach(function(x,k){if(S.m[gi+"_"+j+"_"+k])d++});if(sy(gi,j)[1])d++});return {d:d,t:t}}
+var MAP={0:2,1:3,2:4,3:5,4:7,5:8};
+var N=45,CT=[5,19,29,43],TH=["Polity + Governance","Economy","Environment","Science + Tech","International Relations","Reports + Indices","Govt Schemes","Institutions + Personalities"];
+var CW=[[0,4,"May 2026",2],[6,18,"June 2026",1],[20,28,"July 2026",2],[30,42,"Aug 2026",1]];
+function caText(i){
+var k=CT.indexOf(i);
+if(k>=0)return "CA TEST-"+(k+1)+" ("+P[k][1]+"): "+P[k][2]+" · official "+sd(od(P[k][3]))+(k<2?" (test week ke andar, Sunday ko, taaki AWFG test wale din bache rahein)":"")+". Test ke liye Prelims PYQ slot ka 1 hr bhi lo";
+for(var w=0;w<CW.length;w++){var c=CW[w];if(i>=c[0]&&i<=c[1]){var q=i-c[0],len=c[1]-c[0]+1,per=c[3],nth=8/per,rem=len-nth;
+if(q<nth)return c[2]+": "+TH.slice(q*per,q*per+per).join(" + ");
+if(rem===1)return "Static–dynamic MCQs + recall sheet: "+c[2];
+if(q<nth+2)return "Static–dynamic MCQs: "+c[2];
+return "Recap: "+c[2]+" recall sheet + notes"}}
+return "CA Test-4 review + Sep 2026 CA preview"}
+var GN=["Prelims","CSAT","GS1","GS2","GS3","GS4","Essay","PubAd P1","PubAd P2"];
+var TP=[0,1,2,3,4,6,7,8,9,10,11,13,14,15,16,17,18,20,21,22,23,24,25,27,28,29,30,31,32,34,35,36,37];
+var DM=[];TP.forEach(function(d,k){DM[d]="T"+(k+1)});DM[27]+="|5_7";
+DM[5]="~Weekly revision: tests #1–5 (GS2 polity, welfare) weak answers rewrite";
+DM[12]="~Weekly revision: tests #6–11 (governance, IR, economy) weak answers rewrite";
+DM[19]="~Weekly revision: tests #12–17 (GS3 economy, agri, S&T, env) weak answers rewrite";
+DM[26]="6_0|~Weekly revision: tests #18–23 (security + GS4) weak answers rewrite";
+DM[33]="6_1|~Weekly revision: tests #24–29 (GS4 + GS1) weak answers rewrite";
+DM[38]="~GS2 full paper (3 hrs) + review";DM[39]="~GS3 full paper (3 hrs) + review";DM[40]="~GS1 full paper (3 hrs) + review|6_2";DM[41]="~GS4 full paper (3 hrs) + case studies review";DM[42]="6_3|~Weak-topic answers rewrite (all papers)";DM[43]="~All-paper one-pagers, flowcharts + key data";DM[44]="~Review: weak-topics list, mock scores, Jan plan";
+var DP=["0_1|0_2","0_3|0_4","0_5|0_6","0_7|~Polity: mixed all-years PYQs","~Polity: wrong-only PYQs + 50 Q timed","~Mock: Polity, 50 Q + analysis","0_45","0_46","~CA-linked PYQs: IR, reports + polity","0_30|0_31","0_32|0_33","0_34|0_35","~Mock: Economy + Polity, 50 Q","~Economy: wrong-only PYQs + data revision","0_41|0_42","0_43","0_37|0_38","0_39","~Env + S&T: wrong-only PYQs","~Mock: Economy + Env + S&T, 50 Q","0_9|0_10","0_11|0_12","0_13|0_15","0_16|0_17","0_19|0_20","0_21|~Art + Culture: wrong-only PYQs","~Mock: History + Culture, 50 Q","0_23|0_24","0_25|0_26","0_27|0_28","1_0|~Geography: wrong-only PYQs + maps","1_2|~History + Culture: wrong-only PYQs","1_3|~Polity + governance: wrong-only PYQs","~Mock: full Prelims GS-I, 100 Q in 2 hrs + analysis","1_5|~Economy: wrong-only PYQs","1_6|~Env + S&T: wrong-only PYQs","1_4|~IR + current events: wrong-only PYQs","1_1|~Static–current linking quiz, 50 Q","~Mixed timed sets, 50 Q","~Mixed timed sets, 50 Q","~Mock: full Prelims GS-I, 100 Q in 2 hrs + analysis","~CSAT full paper (2 hrs) + review","~Weak-areas final round","~CA Test-4 ke liye 1 hr; baaki weak-areas","~Accuracy tally: subject-wise marks across mocks"];
+var DO=["~PubAd Paper 1 mock: full paper, 3 hrs (flex slot add karo)","~Paper 1 review + weak topics rewrite","~PubAd Paper 2 mock: full paper, 3 hrs (flex slot add karo)","~Paper 2 review + weak topics rewrite","~One-liners, diagrams + thinkers table (both papers)","~PubAd Mains PYQs: sabse mushkil 10 per paper","~PubAd weak chapters: final pass","~Light revision"];
+var TOP={};G.forEach(function(g,gi){g[3].forEach(function(s,j){var p=pt(s);if(!p.h&&p.g&&p.g.charAt(0)==="t"){var n=+p.g.slice(1);(TOP[n]=TOP[n]||[]).push(gi+"_"+j)}})});
+function rt(s){return s.split("|").map(function(t){
+if(t.charAt(0)==="~")return t.slice(1);
+if(/^T\d+$/.test(t)){var n=+t.slice(1),tp=(TOP[n]||[]).map(function(r){var p=r.split("_");return pt(G[+p[0]][3][+p[1]]).t}).join(", ");return "AWFG Test #"+n+": pehle "+tp+" padho"+(n>=19&&n<=24?" + 2 case studies":"")+", phir test (1 hr)"}
+var p=t.split("_"),g=+p[0],pp=pt(G[g][3][+p[1]]);return GN[g]+" · "+pp.t+" ("+pp.m.length+" micro-topics)"}).join(" + ")}
+var R=[],PLN={};
+function addP1(t,i){if(/^\d+_\d+$/.test(t)){var a=PLN[t]||(PLN[t]=[]);if(a.indexOf(i)<0)a.push(i)}}
+function addP(s,i){s.split("|").forEach(function(t){if(/^T\d+$/.test(t)){(TOP[+t.slice(1)]||[]).forEach(function(r){addP1(r,i)});return}addP1(t,i)})}
+for(var i=0;i<N;i++){var o=i<=18?"7_"+i:i<=36?"8_"+(i-19):DO[i-37],ts0=/^T\d/.test(DM[i]);
+R.push([rt(DM[i]),rt(DP[i]),rt(o),caText(i),ts0?"Test review: model answer se compare, ek weak answer dobara likho":"Aaj ke galat Prelims Qs ka error log + ek weak answer rewrite"]);
+addP(DM[i],i);addP(DP[i],i);addP(o,i)}
+var PH=[[0,5,"Week 1: GS2 Polity block","17–22 Nov","AWFG #1–5 (polity, federalism, welfare) · Polity PYQs · May CA + CA Test-1 (22 Nov)"],
+[6,12,"Week 2: governance, IR, GS3 economy","23–29 Nov","AWFG #6–11 · IR + Economy PYQs · June CA"],
+[13,19,"Week 3: GS3 economy to environment","30 Nov–6 Dec","AWFG #12–17 · S&amp;T + Env PYQs · CA Test-2 (6 Dec)"],
+[20,26,"Week 4: GS3 security + GS4 ethics","7–13 Dec","AWFG #18–23 · History + Culture PYQs · July CA"],
+[27,33,"Week 5: GS4 finish + GS1 start","14–20 Dec","AWFG #24–29 · Geography PYQs · CA Test-3 (16 Dec) · full Prelims mock"],
+[34,37,"GS1 tests finish","21–24 Dec","AWFG #30–33 · CSAT · wrong-only PYQs"],
+[38,44,"Final pass: full papers + mocks","25–31 Dec","GS2, GS3, GS1, GS4 papers · essay · Prelims mocks · CA Test-4 (30 Dec)"]];
+var LS="mk_trk_v1",S,F={gs:"ALL",st:"all"},sg=0,tab="d",di=0,ts="a",openT={};
+var NOW=new Date(),TD=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
+function norm(o){
+if(!o||!o.t||!o.d||!o.s)return null;
+if(!o.v){var n={};for(var k in o.s){var p=k.split("_");if(MAP[p[0]]!==undefined)n[MAP[p[0]]+"_"+p[1]]=o.s[k]}o.s=n;o.v=2}
+if(!o.m)o.m={};
+if(o.v<3){var keep=[2,3,4,5,7,8];Object.keys(o.s).forEach(function(k){var p=k.split("_"),g=+p[0],j=+p[1];if(keep.indexOf(g)<0){delete o.s[k];return}var v=o.s[k];if(v[0]&&G[g]&&G[g][3][j]){var c=pt(G[g][3][j]).m.length;for(var q=0;q<c;q++)o.m[k+"_"+q]=1}o.s[k]=[0,v[1]||0]});o.v=3}
+if(o.v<5){o.d={};o.t={};o.v=5}
+if(!o.c)o.c={};return o}
+function load(){var o=null;try{o=norm(JSON.parse(localStorage.getItem(LS)))}catch(e){}
+if(!o){o={t:{},d:{},s:{},c:{},m:{},v:5}}S=o}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+function $(id){return document.getElementById(id)}
+function td(n){return S.t[n]||(S.t[n]={})}
+function cd(n){return S.c[n]||(S.c[n]={})}
+function dd(i){var a=S.d[i]||(S.d[i]=[0,0,0,0,0]);while(a.length<5)a.push(0);return a}
+function sy(g,j){var k=g+"_"+j;return S.s[k]||(S.s[k]=[0,0])}
+function odt(t){var p=t[1].split("-");return new Date(2026,+p[0]-1,+p[1])}
+function tdate(t){return idate(TP[t[0]-1])}
+function od(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2])}
+function idate(i){return new Date(2026,10,17+i)}
+function fd(d){return wd[d.getDay()]+" "+d.getDate()+" "+mn[d.getMonth()]}
+function sd(d){return d.getDate()+" "+mn[d.getMonth()]}
+function todayIdx(){return Math.round((TD-new Date(2026,10,17))/864e5)}
+function esc(v){return String(v||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function stA(t){return td(t[0]).g?"done":(tdate(t)<TD?"over":"pend")}
+function stC(p){return cd(p[0]).g?"done":(od(p[3])<TD?"over":"pend")}
+function awNo(d){for(var k=0;k<T.length;k++)if(tdate(T[k]).getTime()===d.getTime())return T[k][0];return 0}
+function full(k){return k[0]&&k[1]&&k[2]&&k[3]&&k[4]}
+function hero(){
+var tn=0,dn=0,sn=0,st=0;
+T.forEach(function(t){if(td(t[0]).g)tn++});P.forEach(function(p){if(cd(p[0]).g)tn++});
+for(var i=0;i<R.length;i++)dd(i).forEach(function(v){dn+=v});
+G.forEach(function(g,gi){var a=gstat(gi);sn+=a.d;st+=a.t});
+var tt=T.length+P.length,tot=tt+R.length*5+st,pct=Math.round(100*(tn+dn+sn)/tot);
+$("rg").style.strokeDashoffset=213.6*(1-pct/100);$("pc").textContent=pct+"%";
+function b(l,a,c){return '<div><div class="bl">'+l+'<span>'+a+' / '+c+'</span></div><div class="bt"><i style="width:'+Math.round(100*a/c)+'%"></i></div></div>'}
+$("bars").innerHTML=b("Tests (AWFG + CA)",tn,tt)+b("Daily plan",dn,R.length*5)+b("Syllabus",sn,st);
+var na=T.filter(function(t){return !td(t[0]).g&&tdate(t)>=TD})[0],nc=P.filter(function(p){return !cd(p[0]).g&&od(p[3])>=TD})[0],ti=todayIdx();
+$("nx").innerHTML="<div>Din "+Math.max(1,Math.min(R.length,ti+1))+" / "+R.length+"</div>"+(na?"<div><span>Agla AWFG:</span> #"+na[0]+" · "+fd(tdate(na))+"</div>":"")+(nc?"<div><span>Agla PowerUp CA:</span> Test-"+nc[0]+" · "+fd(od(nc[3]))+"</div>":"")}
+function renderCal(){
+var h="",ti=todayIdx();
+for(var x0=0;x0<49;x0++){var x=x0-1;
+if(x<0||x>=R.length){h+="<span></span>";continue}
+var d=idate(x),f=full(dd(x)),a=R[x][0].indexOf("AWFG Test")===0,c=CT.indexOf(x)>=0;
+h+='<button class="cd'+(x===di?" sel":"")+(x===ti?" tdy":"")+(a?" aw":"")+(c?" ca":"")+(f?" fl":"")+'" data-i="'+x+'"><i class="mo">'+((x===0||d.getDate()===1)?mn[d.getMonth()]:"")+'</i>'+d.getDate()+'<span class="dots">'+(a?'<u class="d1"></u>':"")+(c?'<u class="d2"></u>':"")+(f?'<u class="d3"></u>':"")+'</span></button>'}
+$("cal").innerHTML=h}
+function renderDay(){
+var i=di,d=idate(i),k=dd(i),r=R[i],aw=awNo(d),ph=PH.filter(function(p){return i>=p[0]&&i<=p[1]})[0],n=k[0]+k[1]+k[2]+k[3]+k[4],tg="";
+if(r[0].indexOf("AWFG Test")===0)tg+='<i class="tg2 r">AWFG Test'+(aw?" #"+aw:"")+'</i>';
+if(CT.indexOf(i)>=0)tg+='<i class="tg2 a">PowerUp CA Test-'+(CT.indexOf(i)+1)+'</i>';
+if(d.getDay()===0)tg+='<i class="tg2 g">Half day · 7–8 hrs</i>';
+var h='<div class="card"><div class="dh"><h3>'+fd(d)+'</h3><span>'+n+'/5</span></div><div class="ph">'+ph[2]+' · '+ph[3]+'</div>'+(tg?'<div class="tgs2">'+tg+'</div>':"")+'<div class="tip">💡 '+TIPS[i%TIPS.length]+'</div>';
+for(var j=0;j<5;j++)h+='<label class="row" style="--a:var('+CL[j]+')"><input type="checkbox" data-d="'+i+'" data-k="'+j+'"'+(k[j]?" checked":"")+'><i class="ck"></i><div class="rb"><em>'+LB[j]+'<s>'+TM[j]+'</s></em><span>'+r[j]+'</span></div></label>';
+h+='<div class="nv"><button data-nv="-1"'+(i===0?' style="visibility:hidden"':"")+'>‹ Pichla din</button><button data-nv="1"'+(i===R.length-1?' style="visibility:hidden"':"")+'>Agla din ›</button></div></div>';
+$("dc").innerHTML=h}
+function renderRM(){
+$("rm").innerHTML=PH.map(function(p){return '<div class="ps"><b>'+p[3]+'</b><div><strong>'+p[2]+'</strong><br>'+p[4]+'</div></div>'}).join("")}
+function renderTF(){
+var h='<button data-ts="a"'+(ts==="a"?' class="on"':"")+'>AWFG Mains (33)</button><button data-ts="c"'+(ts==="c"?' class="on"':"")+'>PowerUp CA (15)</button>';
+if(ts==="a")["ALL","GS1","GS2","GS3","GS4"].forEach(function(g){h+='<button data-gs="'+g+'"'+(F.gs===g?' class="on"':"")+'>'+g+'</button>'});
+[["all","Sab"],["pend","Pending"],["done","Done"],["over","Overdue"]].forEach(function(s){h+='<button data-st="'+s[0]+'"'+(F.st===s[0]?' class="on"':"")+'>'+s[1]+'</button>'});
+$("tf").innerHTML=h}
+function notes(a,i,x){return '<div class="tgl"><label class="tg"><input type="checkbox" data-'+a+'="'+i+'" data-f="g"'+(x.g?" checked":"")+'><span>Given</span></label><label class="tg"><input type="checkbox" data-'+a+'="'+i+'" data-f="r"'+(x.r?" checked":"")+'><span>Reviewed</span></label></div><details class="nt"><summary>Score + notes'+((x.s||x.n)?" ●":"")+'</summary><input type="text" placeholder="Score" data-'+a+'="'+i+'" data-f="s" value="'+esc(x.s)+'"><input type="text" placeholder="Weak points" data-'+a+'="'+i+'" data-f="n" value="'+esc(x.n)+'"></details>'}
+function okF(s){if(F.st==="pend")return s!=="done";return F.st==="all"||F.st===s}
+function renderTests(){
+var h="";
+if(ts==="a")T.forEach(function(t){
+var s=stA(t);if(F.gs!=="ALL"&&t[2]!==F.gs)return;if(!okF(s))return;
+var d=tdate(t);
+h+='<div class="tc '+s+'"><div class="dt"><b>'+d.getDate()+'</b><span>'+mn[d.getMonth()]+'</span></div><div class="tb"><div class="tm">#'+t[0]+'<span class="gs">'+t[2]+'</span><span class="st">'+(s==="done"?"Done":s==="over"?"Overdue":wd[d.getDay()])+'</span></div><div class="tt">'+t[3]+'</div>'+'<div class="pn">Original date: '+sd(odt(t))+' (rescheduled)</div>'+notes("t",t[0],td(t[0]))+'</div></div>'});
+else P.forEach(function(p){
+var s=stC(p);if(!okF(s))return;
+var d=od(p[3]),pl="";
+if(p[0]<=4){var pd=idate(CT[p[0]-1]);pl='<div class="pn">Plan: '+fd(pd)+(pd.getTime()!==d.getTime()?" (official "+sd(d)+")":"")+'</div>'}
+h+='<div class="tc '+s+'"><div class="dt"><b>'+d.getDate()+'</b><span>'+mn[d.getMonth()]+(d.getFullYear()>2026?" ’27":"")+'</span></div><div class="tb"><div class="tm">CA Test-'+p[0]+'<span class="gs">'+p[1]+'</span><span class="st">'+(s==="done"?"Done":s==="over"?"Overdue":wd[d.getDay()])+'</span></div><div class="tt">'+p[2]+'</div>'+pl+notes("c",p[0],cd(p[0]))+'</div></div>'});
+$("tl").innerHTML=h||'<div class="empty">Koi test nahi mila</div>'}
+function renderSyl(){
+var g=G[sg],h="",idx=0;
+$("sf").innerHTML=G.map(function(x,gi){var a=gstat(gi);return '<button class="tile'+(gi===sg?" on":"")+'" data-sg="'+gi+'" style="--g1:'+x[2][0]+';--g2:'+x[2][1]+'"><span class="em">'+x[1]+'</span><b>'+x[0]+'</b><small>'+a.d+' / '+a.t+'</small><i class="pb2"><u style="width:'+Math.round(100*a.d/a.t)+'%"></u></i></button>'}).join("");
+var a=gstat(sg),sty='--g1:'+g[2][0]+';--g2:'+g[2][1];
+g[3].forEach(function(s,j){
+var p=pt(s);if(p.h){h+='<div class="sh">'+p.h+'</div>';return}
+var key=sg+"_"+j,n=0,tg="",rv=sy(sg,j)[1],ch="";
+var tp=[];if(p.g&&p.g.charAt(0)==="t"){var v=+p.g.slice(1);tp.push("AWFG #"+v+" · "+sd(tdate(T[v-1])))}var pl=PLN[key];if(pl)tp.push("Plan: "+sd(idate(pl[0]))+(pl.length>1?" +"+(pl.length-1):""));tg=tp.join(" · ");
+p.m.forEach(function(x,k){var on=S.m[key+"_"+k];if(on)n++;ch+='<label class="tg"><input type="checkbox" data-m="'+key+"_"+k+'"'+(on?" checked":"")+'><span>'+x.trim()+'</span></label>'});
+h+='<details class="tp'+(n===p.m.length&&rv?" dn":"")+'" data-k="'+key+'" style="'+sty+'"'+(openT[key]?" open":"")+'><summary><span class="nb">'+(++idx)+'</span><span class="tt2">'+p.t+(tg?'<small>'+tg+'</small>':"")+'</span><span class="ct2">'+n+'/'+p.m.length+(rv?" ✓":"")+'</span></summary><div class="mc">'+ch+'</div><div class="ac2"><button data-all="'+key+'">Sab padh liya</button><label class="tg"><input type="checkbox" data-rv="'+key+'"'+(rv?" checked":"")+'><span>Revised</span></label></div></details>'});
+$("sp").innerHTML='<div class="gp" style="'+sty+'"><h3>'+g[1]+' '+g[0]+'</h3><small>'+a.d+' / '+a.t+' complete · micro-topics + revision</small></div>';
+$("sl").innerHTML=h}
+function all(){di=Math.max(0,Math.min(R.length-1,todayIdx()));hero();renderCal();renderDay();renderRM();renderTF();renderTests();renderSyl()}
+document.addEventListener("click",function(e){
+var b=e.target.closest("button");if(!b)return;
+if(b.dataset.tab){tab=b.dataset.tab;document.querySelectorAll("nav button").forEach(function(x){x.classList.toggle("on",x===b)});["d","t","s"].forEach(function(t){$("tab-"+t).hidden=t!==tab});window.scrollTo(0,0)}
+else if(b.dataset.i!==undefined){di=+b.dataset.i;renderCal();renderDay()}
+else if(b.dataset.nv){di=Math.max(0,Math.min(R.length-1,di+ +b.dataset.nv));renderCal();renderDay()}
+else if(b.dataset.ts){ts=b.dataset.ts;renderTF();renderTests()}
+else if(b.dataset.gs){F.gs=b.dataset.gs;renderTF();renderTests()}
+else if(b.dataset.st){F.st=b.dataset.st;renderTF();renderTests()}
+else if(b.dataset.sg!==undefined){sg=+b.dataset.sg;renderSyl()}
+else if(b.dataset.all){var ap=b.dataset.all.split("_"),pp=pt(G[+ap[0]][3][+ap[1]]);for(var q=0;q<pp.m.length;q++)S.m[b.dataset.all+"_"+q]=1;save();openT[b.dataset.all]=true;renderSyl();hero()}
+else if(b.id==="th"){var r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=dk?"light":"dark"}
+else if(b.id==="bkb"){var x=$("bk");x.style.display=x.style.display==="block"?"none":"block"}
+else if(b.id==="ex"){var j=JSON.stringify(S);$("bt").value=j;$("bt").select();try{navigator.clipboard.writeText(j);$("bm").textContent="Copy ho gaya, kahin save kar lo"}catch(err){$("bm").textContent="Text select hai, copy karke save karo"}}
+else if(b.id==="rs"){try{var o=norm(JSON.parse($("bt").value));if(!o)throw 1;S=o;save();all();$("bm").textContent="Restore ho gaya"}catch(err){$("bm").textContent="Text sahi nahi hai"}}});
+document.addEventListener("change",function(e){
+var el=e.target,a=el.dataset.t!==undefined?"t":el.dataset.c!==undefined?"c":"";
+if(a){var x=(a==="t"?td:cd)(el.dataset[a]),f=el.dataset.f;x[f]=el.type==="checkbox"?(el.checked?1:0):el.value;save();if(el.type==="checkbox"){renderTests();hero()}}
+else if(el.dataset.d!==undefined){dd(el.dataset.d)[el.dataset.k]=el.checked?1:0;save();renderCal();renderDay();hero()}
+else if(el.dataset.m){var mk=el.dataset.m;if(el.checked)S.m[mk]=1;else delete S.m[mk];save();renderSyl();hero()}
+else if(el.dataset.rv){var rp=el.dataset.rv.split("_");sy(+rp[0],+rp[1])[1]=el.checked?1:0;save();renderSyl();hero()}});
+document.addEventListener("toggle",function(e){var k=e.target.dataset&&e.target.dataset.k;if(k)openT[k]=e.target.open},true);
+load();all();
+</script>
+</body>
+</html>
